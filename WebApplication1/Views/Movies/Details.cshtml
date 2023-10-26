@@ -1,0 +1,101 @@
+﻿@model WebApplication1.Models.MovieDetailsVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.title)
+        </dd>
+        <dt class = "col-sm-2">
+            <a href=model.link target="_blank">IMDB</a>
+            @Html.DisplayNameFor(model => model.movie.url)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.url)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.genre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.genre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.release.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.release.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.description)
+        </dd>
+    </dl>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                gender
+            </th>
+            <th>
+                age
+            </th>
+            <th>
+                link
+            </th>
+            <th>
+                photo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+<tbody>
+    @foreach (var item in Model.actors)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                <a href="@item.link" target="_blank">IMDB</a>
+                @Html.DisplayFor(modelItem => item.link)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.movie.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable(); // Initialize DataTables on the table with the id "example"
+    });
+</script>

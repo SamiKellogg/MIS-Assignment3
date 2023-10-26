@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebApplication1.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.release)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                    <a href="@item.url" target="_blank">IMDB</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.release.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+                <td>
+                    @if (item.MovieImage != null && item.MovieImage.Length != 0)
+                    {
+                        <img height="150" src="@Url.Action("GetMoviePhoto", "Movies", new {item.id})" />
+                    }
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable(); // Initialize DataTables on the table with the id "example"
+    });
+</script>
